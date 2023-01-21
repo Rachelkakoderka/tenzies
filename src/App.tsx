@@ -2,23 +2,34 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+import Die from "./Die"
+
 function App() {
+
+  // const dieElements:  = () => {
+
+  // }
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className='board'>
+        <h1>Tenzies</h1>
+        <h2> Roll until all dice are the same. 
+          < br/>
+          Click each die to freeze it at its current value between rolls.</h2>
+        
+        <div className='die-container'>
+          <Die />
+          <Die />
+          <Die />
+          <Die />
+          <Die />
+          <Die />
+          <Die />
+          <Die />
+        </div>  
+      </div>   
     </div>
   );
 }
