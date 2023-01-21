@@ -1,13 +1,25 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 import Die from "./Die"
 
 function App() {
 
-  // const dieElements:  = () => {
 
+  // function createDie() {
+  //   return {
+  //     id: 1234,
+  //     value: 5,
+  //     isHeld: false
+  //   } 
+  // }
+
+  // const DiceElements = () => {
+  //     const diceArr : Array<object> = [];
+  //     for (let i=0; i<10; i++) {
+  //       diceArr.push(createDie());
+  //     }
+  //     return diceArr;
   // }
 
 
@@ -19,16 +31,22 @@ function App() {
           < br/>
           Click each die to freeze it at its current value between rolls.</h2>
         
-        <div className='die-container'>
-          <Die />
-          <Die />
-          <Die />
-          <Die />
-          <Die />
-          <Die />
-          <Die />
-          <Die />
-        </div>  
+        <div className='container'>
+          {/* {DiceElements} */}
+          <Die value="1" />
+          <Die value="1" />
+          <Die value="1" />
+          <Die value="1" />
+          <Die value="1" />
+          <Die value="1" />
+          <Die value="1" />
+          <Die value="1" />
+          <Die value="1" />
+          <Die value="1" />
+          
+        </div>
+
+        <button className='roll-btn'>Roll Dice</button>  
       </div>   
     </div>
   );
