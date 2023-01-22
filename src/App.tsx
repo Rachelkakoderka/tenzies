@@ -11,7 +11,7 @@ function App() {
     isHeld: boolean
   }
 
-  const [dice, setDice] = React.useState(createDiceArr());
+  const [dice, setDice] = React.useState<interfaceDie[]>(createDiceArr());
   console.log(dice)
 
   function createDie(id: number): interfaceDie{
@@ -25,8 +25,8 @@ function App() {
   }
 
   
-  function createDiceArr(): Array<object> {
-      const diceArr : Array<interfaceDie> = [];
+  function createDiceArr(): Array<interfaceDie> {
+      const diceArr : interfaceDie[] = [];
       for (let i : number =0; i<10; i++) {
         diceArr.push(createDie(i));
       }
@@ -36,7 +36,7 @@ function App() {
   
 
   // nie rozumiem gdzie tu jest błąd
-const diceElements = dice.map((die : interfaceDie[]) => <Die value={die.value} id={die.id} isHeld={die.isHeld} />);
+const diceElements = dice.map((die) => (<Die value={die.value} id={die.id} isHeld={die.isHeld} />));
 
 console.log(diceElements)
   
@@ -50,8 +50,8 @@ console.log(diceElements)
           Click each die to freeze it at its current value between rolls.</h2>
         
         <div className='container'>
-          {diceElements}
-         
+         {diceElements}
+                  
           
         </div>
 
