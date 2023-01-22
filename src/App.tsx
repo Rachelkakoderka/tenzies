@@ -5,7 +5,7 @@ import Die from "./Die"
 
 function App() {
   
-  interface Die {
+  interface interfaceDie {
     id: number,
     value: number,
     isHeld: boolean
@@ -14,9 +14,9 @@ function App() {
   const [dice, setDice] = React.useState(createDiceArr());
   console.log(dice)
 
-  function createDie(id: number): Die{
+  function createDie(id: number): interfaceDie{
     
-    const die = {
+    const die : interfaceDie = {
       id: id,
       value: Math.ceil(Math.random()*6),
       isHeld: false
@@ -26,7 +26,7 @@ function App() {
 
   
   function createDiceArr(): Array<object> {
-      const diceArr : Array<object> = [];
+      const diceArr : Array<interfaceDie> = [];
       for (let i : number =0; i<10; i++) {
         diceArr.push(createDie(i));
       }
@@ -34,7 +34,9 @@ function App() {
       return diceArr;
   }
   
-const diceElements = dice.map(die => <Die id={die.id} value={die.value} isHeld={die.isHeld} />);
+
+  // nie rozumiem gdzie tu jest błąd
+const diceElements = dice.map((die : interfaceDie[]) => <Die value={die.value} id={die.id} isHeld={die.isHeld} />);
 
 console.log(diceElements)
   

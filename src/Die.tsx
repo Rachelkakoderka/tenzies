@@ -1,9 +1,15 @@
 import React from "react"
 
-export default function Die(prop: {value: number, id: number, isHeld: boolean}) {
+interface Props {
+    id: number,
+    value: number,
+    isHeld: boolean
+}
+
+export default function Die( {id, value, isHeld} :Props) {
     return (
         <div className="die">
-            <p>{prop.value}</p>
+            <p>{value}</p>
         </div>
     )
 }
