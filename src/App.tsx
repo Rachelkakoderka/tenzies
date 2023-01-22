@@ -4,24 +4,40 @@ import './App.css';
 import Die from "./Die"
 
 function App() {
+  
+  interface Die {
+    id: number,
+    value: number,
+    isHeld: boolean
+  }
 
+  const [dice, setDice] = React.useState(createDiceArr());
+  console.log(dice)
 
-  // function createDie() {
-  //   return {
-  //     id: 1234,
-  //     value: 5,
-  //     isHeld: false
-  //   } 
-  // }
+  function createDie(id: number): Die{
+    
+    const die = {
+      id: id,
+      value: Math.ceil(Math.random()*6),
+      isHeld: false
+    } 
+    return die;
+  }
 
-  // const DiceElements = () => {
-  //     const diceArr : Array<object> = [];
-  //     for (let i=0; i<10; i++) {
-  //       diceArr.push(createDie());
-  //     }
-  //     return diceArr;
-  // }
+  
+  function createDiceArr(): Array<object> {
+      const diceArr : Array<object> = [];
+      for (let i : number =0; i<10; i++) {
+        diceArr.push(createDie(i));
+      }
+      console.log(diceArr);
+      return diceArr;
+  }
+  
+const diceElements = dice.map(die => <Die id={die.id} value={die.value} isHeld={die.isHeld} />);
 
+console.log(diceElements)
+  
 
   return (
     <div className="App">
@@ -32,17 +48,8 @@ function App() {
           Click each die to freeze it at its current value between rolls.</h2>
         
         <div className='container'>
-          {/* {DiceElements} */}
-          <Die value="1" />
-          <Die value="1" />
-          <Die value="1" />
-          <Die value="1" />
-          <Die value="1" />
-          <Die value="1" />
-          <Die value="1" />
-          <Die value="1" />
-          <Die value="1" />
-          <Die value="1" />
+          {diceElements}
+         
           
         </div>
 
