@@ -2,44 +2,61 @@ import React from 'react';
 import './App.css';
 
 import Die from "./Die"
+import {interfaceDie} from "./model"
+import { nanoid } from 'nanoid'
+
 
 function App() {
   
-  interface interfaceDie {
-    id: number,
-    value: number,
-    isHeld: boolean
-  }
-
   const [dice, setDice] = React.useState<interfaceDie[]>(createDiceArr());
-  console.log(dice)
 
-  function createDie(id: number): interfaceDie{
+  const [isWon, setIsWon ] = React.useState<boolean>(false)
+
+  function createDie(): interfaceDie {
     
     const die : interfaceDie = {
-      id: id,
+      id: nanoid(),
       value: Math.ceil(Math.random()*6),
       isHeld: false
     } 
     return die;
   }
-
   
   function createDiceArr(): Array<interfaceDie> {
       const diceArr : interfaceDie[] = [];
       for (let i : number =0; i<10; i++) {
-        diceArr.push(createDie(i));
+        diceArr.push(createDie());
       }
-      console.log(diceArr);
+      
       return diceArr;
+  }
+
+  function updateDice(): void {
+      setDice(
+        dice.map( (die) => die.isHeld ?
+        {...die} :
+        createDie() )
+      )
   }
   
 
-  // nie rozumiem gdzie tu jest błąd
-const diceElements = dice.map((die) => (<Die value={die.value} id={die.id} isHeld={die.isHeld} />));
 
-console.log(diceElements)
-  
+const diceElements = dice.map((die) => (<Die key = {die.id} die={die} dice={dice} setDice={setDice} />));
+
+
+React.useEffect(() => {
+  const diceHeld = dice.filter(die => die.isHeld);
+  const chosenNum = dice.every((die) => )
+  if (diceHeld.length === 10) {
+
+  }
+  return () => {
+    
+  }
+}, [dice])
+
+
+// console.log("component rendered fully")
 
   return (
     <div className="App">
@@ -55,7 +72,9 @@ console.log(diceElements)
           
         </div>
 
-        <button className='roll-btn'>Roll Dice</button>  
+        <button className='roll-btn'
+                onClick={updateDice} 
+        >Roll Dice</button>  
       </div>   
     </div>
   );
