@@ -4,6 +4,7 @@ import './App.css';
 import Die from "./Die"
 import {interfaceDie} from "./model"
 import { nanoid } from 'nanoid'
+import Confetti from 'react-confetti'
 
 
 function App() {
@@ -32,11 +33,17 @@ function App() {
   }
 
   function updateDice(): void {
+    if (isWon) {
+      setIsWon(false)
+      setDice(createDiceArr());
+    } else {
       setDice(
         dice.map( (die) => die.isHeld ?
         {...die} :
-        createDie() )
+        createDie()
+        )
       )
+    }    
   }
   
 
@@ -46,20 +53,21 @@ const diceElements = dice.map((die) => (<Die key = {die.id} die={die} dice={dice
 
 React.useEffect(() => {
   const diceHeld = dice.filter(die => die.isHeld);
-  const chosenNum = dice.every((die) => )
-  if (diceHeld.length === 10) {
-
+  const chosenNum = dice[0].value;
+  const sameNum = dice.every((die) => die.value === chosenNum)
+  if (diceHeld.length === 10 && sameNum) {
+    return setIsWon(true); 
   }
-  return () => {
-    
   }
-}, [dice])
+, [dice])
 
 
 // console.log("component rendered fully")
 
   return (
     <div className="App">
+      {isWon ? <Confetti /> : ""}
+
       <div className='board'>
         <h1>Tenzies</h1>
         <h2> Roll until all dice are the same. 
@@ -74,7 +82,7 @@ React.useEffect(() => {
 
         <button className='roll-btn'
                 onClick={updateDice} 
-        >Roll Dice</button>  
+        >{isWon ?" Play Again" : "Roll Dice"}</button>  
       </div>   
     </div>
   );
