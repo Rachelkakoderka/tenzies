@@ -2,16 +2,24 @@ import React from 'react';
 import './App.css';
 
 import Die from "./Die"
-import {interfaceDie} from "./model"
+import {interfaceDie, timeFormat} from "./model"
 import { nanoid } from 'nanoid'
 import Confetti from 'react-confetti'
+import Counter from './Counter';
+// import Timer from './Timer';
+// Problem w komponencie: This JSX tag's 'children' prop expects a single child of type 'ReactNode', but multiple children were provided.ts(2746)
+
+
 
 
 function App() {
   
   const [dice, setDice] = React.useState<interfaceDie[]>(createDiceArr());
+  const [isWon, setIsWon ] = React.useState<boolean>(false);
+  const [isStarted, setIsStarted] = React.useState<boolean>(false);
+  const [moves, setMoves] = React.useState<number>(0)
+  // const [time, setTime] = React.useState<timeFormat>({hrs: 0,min: 0,sek: 0})
 
-  const [isWon, setIsWon ] = React.useState<boolean>(false)
 
   function createDie(): interfaceDie {
     
@@ -34,21 +42,37 @@ function App() {
 
   function updateDice(): void {
     if (isWon) {
-      setIsWon(false)
-      setDice(createDiceArr());
+        setIsWon(false)
+        setIsStarted(false)
+        setDice(createDiceArr());
+      } else {
+        setDice(
+          dice.map( (die) => die.isHeld ?
+          {...die} :
+          createDie()
+          )
+        ) 
+      }  
+  }
+
+  function game():void  {
+    if (isStarted){ 
+      updateDice();
+      setMoves(prevMoves => prevMoves+1);
     } else {
-      setDice(
-        dice.map( (die) => die.isHeld ?
-        {...die} :
-        createDie()
-        )
-      )
-    }    
+      setIsStarted(true);
+      setMoves(0);
+      
+    }
   }
   
 
 
-const diceElements = dice.map((die) => (<Die key = {die.id} die={die} dice={dice} setDice={setDice} />));
+const diceElements = dice.map((die) => (<Die key = {die.id}
+                                             die={die} 
+                                             dice={dice} 
+                                             setDice={setDice}
+                                             isStarted={isStarted} />));
 
 
 React.useEffect(() => {
@@ -81,9 +105,16 @@ React.useEffect(() => {
         </div>
 
         <button className='roll-btn'
-                onClick={updateDice} 
-        >{isWon ?" Play Again" : "Roll Dice"}</button>  
-      </div>   
+                onClick={game} 
+        >{ isStarted ? (isWon ? "Play again" : "Roll Dice") : "Play" }
+        </button>  
+
+        
+        <Counter isStarted={isStarted} isWon={isWon} moves={moves} />
+        {/* <Timer isStarted={isStarted} time={time} /> */}
+  
+      </div>
+     
     </div>
   );
 }

@@ -33,6 +33,9 @@ h1 {
   font-size: 3em;
   
 }
+h2 {
+  text-align: center;
+}
 
 .container {
   display: grid;
@@ -59,7 +62,7 @@ h1 {
 }
 
 .die-held{
-  background: #c99861;
+  background: #fc8b7a;
 }
 
 .roll-btn {
@@ -77,4 +80,22 @@ h1 {
   align-items: center;
   text-align: center;
   
+}
+
+.roll-btn:hover {
+  cursor: pointer;
+  background-color: #583efd;
+}
+
+.stats {
+  width: 100%;
+  margin: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+.stat {
+  display: block;
+  margin: 10px;
+
 }

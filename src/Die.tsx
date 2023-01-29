@@ -4,22 +4,25 @@ import {interfaceDie} from "./model"
 interface Props {
     die : interfaceDie,
     dice: interfaceDie[],
-    setDice: React.Dispatch<React.SetStateAction<interfaceDie[]>>
+    setDice: React.Dispatch<React.SetStateAction<interfaceDie[]>>,
+    isStarted: boolean
 }
 
 
-export default function Die( {die, dice, setDice} :Props) {
+export default function Die( {die, dice, setDice, isStarted} :Props) {
     
     const handleClick = (id:string) => {
-        setDice(dice.map( die => die.id === id ? {...die, isHeld: !die.isHeld} : die))
+        if (isStarted) {
+            setDice(dice.map( die => die.id === id ? {...die, isHeld: !die.isHeld} : die))
         } 
+    }
     
     
     return (
         <div className={die.isHeld ? "die die-held" : "die"}
              onClick={()=> handleClick(die.id)}
         >
-            <p>{die.value}</p>
+            <p>{isStarted ? die.value : "?"}</p>
         </div>
     )
 }

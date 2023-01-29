@@ -4,3 +4,9 @@
     value: number,
     isHeld: boolean
   }
+  
+  export interface timeFormat {
+    hrs: number,
+    min: number,
+    sek: number
+  }
