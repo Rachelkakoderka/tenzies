@@ -51,19 +51,14 @@ function App() {
           {...die} :
           createDie()
           )
-        ) 
+        )
+        setMoves(prevMoves => prevMoves+1); 
       }  
   }
 
-  function game():void  {
-    if (isStarted){ 
-      updateDice();
-      setMoves(prevMoves => prevMoves+1);
-    } else {
-      setIsStarted(true);
-      setMoves(0);
-      
-    }
+  function startGame():void  {
+    setIsStarted(true);
+    setMoves(0); 
   }
   
 
@@ -105,7 +100,7 @@ React.useEffect(() => {
         </div>
 
         <button className='roll-btn'
-                onClick={game} 
+                onClick={isStarted ? updateDice : startGame} 
         >{ isStarted ? (isWon ? "Play again" : "Roll Dice") : "Play" }
         </button>  
 
