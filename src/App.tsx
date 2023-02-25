@@ -19,17 +19,28 @@ function App() {
   const [isStarted, setIsStarted] = React.useState<boolean>(false);
   const [moves, setMoves] = React.useState<number>(0)
   const [time, setTime] = React.useState<timeFormat>({min: 0,sek: 0})
-  const [sek, setSek] = React.useState(0)
+  const [timerId, setTimerId] = React.useState<number>(0) 
+
   const date = new Date();
   const currentDate = date.getFullYear();
   
-  function timer() {
-    setInterval(()=>
-      { setTime(prevTime => ({...prevTime, sek:prevTime.sek+1}))
-      }, 
-      1000)
-    
+ 
+  
+  const timer = () => {
+   let a = window.setInterval(updateTime,
+     1000)
+    setTimerId(a);
   }
+
+  function updateTime() {
+    setTime(prevTime => {
+      if (prevTime.sek === 59) {
+       return {min:prevTime.min+1, sek:0}
+      }
+       return {min:prevTime.min, sek:prevTime.sek+1}
+    })
+      
+  } 
 
 
   function createDie(): interfaceDie {
@@ -56,6 +67,7 @@ function App() {
         setIsWon(false)
         setIsStarted(false)
         setDice(createDiceArr());
+        
       } else {
         setDice(
           dice.map( (die) => die.isHeld ?
@@ -70,7 +82,9 @@ function App() {
   function startGame():void  {
     setIsStarted(true);
     setMoves(0); 
+    setTime({min: 0,sek: 0})
     timer();
+
   }
   
 
@@ -79,7 +93,9 @@ const diceElements = dice.map((die) => (<Die key = {die.id}
                                              die={die} 
                                              dice={dice} 
                                              setDice={setDice}
-                                             isStarted={isStarted} />));
+                                             isStarted={isStarted}
+                                             isWon={isWon}
+                                             timerId={timerId}/>));
 
 
 React.useEffect(() => {
@@ -91,6 +107,9 @@ React.useEffect(() => {
   }
   }
 , [dice])
+
+React.useEffect(()=>{window.clearInterval(timerId)}
+,[isWon])
 
 
 // console.log("component rendered fully")
@@ -115,9 +134,11 @@ React.useEffect(() => {
           >{ isStarted ? (isWon ? "Play again" : "Roll Dice") : "Play" }
           </button>  
 
-          
+          <div className="stats">
           <Counter isStarted={isStarted} isWon={isWon} moves={moves} />
           <Timer isStarted={isStarted} time={time} />
+          </div>
+          
                 
         <p> Made by <a href='https://www.aleksandragalach.link/' target="_blank">Aleksandra Gałach</a> <>{currentDate}</></p> 
       </div>

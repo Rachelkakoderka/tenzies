@@ -10,14 +10,15 @@ interface Props {
 
 const Timer : React.FC<Props> = ({isStarted, time} ) => {
 
+const {min, sek} = time;
+  
 return (
-    <div className='stats'>
-      <span className='stat '>Your time: <> 
-      {time.min}: {time.sek}
-      </></span>
-    </div>
+
+      <h2 className='stat'>Your time:   <> {isStarted ? `${min} : ${sek<10 ? `0${sek}` : sek} ` : "0 : 00"}
+      
+      </>
+      </h2>
+    
     )
 }
 export default Timer
-
-export{}

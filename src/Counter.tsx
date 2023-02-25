@@ -12,9 +12,8 @@ interface Props {
 
 const Counter : React.FC<Props> = ({isStarted, moves, isWon} ) => {
   return (
-    <div className='stats'>
-      <h2 className='stat '>Your moves: {isStarted ? moves : "0"}</h2>
-    </div>
+    
+      <h2 className='stat'>Your moves: {isStarted ? moves : "0"}</h2>
     )
 }
 export default Counter
