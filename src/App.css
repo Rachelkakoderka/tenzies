@@ -2,12 +2,18 @@
   box-sizing: border-box;
 }
 
+
 body {
     background-color: #2B283A;
     font-family: Karla, sans-serif;
     color: #2B283A;
     line-height: 1.15;
     margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: #2B283A;
 }
 
 .App {
@@ -18,9 +24,8 @@ body {
   height: 100vh;
 }
 .board {
-  margin: 3rem;
   background-color: #F5F5F5;
-  padding: 3rem;
+  padding: 3rem 3rem 1rem 3rem ;
   border-radius: 10px;
   display: flex;
   flex-direction: column;

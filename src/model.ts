@@ -6,7 +6,7 @@
   }
   
   export interface timeFormat {
-    hrs: number,
+    hrs?: number,
     min: number,
     sek: number
   }

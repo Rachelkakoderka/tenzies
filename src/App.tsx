@@ -6,7 +6,7 @@ import {interfaceDie, timeFormat} from "./model"
 import { nanoid } from 'nanoid'
 import Confetti from 'react-confetti'
 import Counter from './Counter';
-// import Timer from './Timer';
+import Timer from './Timer';
 // Problem w komponencie: This JSX tag's 'children' prop expects a single child of type 'ReactNode', but multiple children were provided.ts(2746)
 
 
@@ -18,7 +18,18 @@ function App() {
   const [isWon, setIsWon ] = React.useState<boolean>(false);
   const [isStarted, setIsStarted] = React.useState<boolean>(false);
   const [moves, setMoves] = React.useState<number>(0)
-  // const [time, setTime] = React.useState<timeFormat>({hrs: 0,min: 0,sek: 0})
+  const [time, setTime] = React.useState<timeFormat>({min: 0,sek: 0})
+  const [sek, setSek] = React.useState(0)
+  const date = new Date();
+  const currentDate = date.getFullYear();
+  
+  function timer() {
+    setInterval(()=>
+      { setTime(prevTime => ({...prevTime, sek:prevTime.sek+1}))
+      }, 
+      1000)
+    
+  }
 
 
   function createDie(): interfaceDie {
@@ -59,6 +70,7 @@ function App() {
   function startGame():void  {
     setIsStarted(true);
     setMoves(0); 
+    timer();
   }
   
 
@@ -88,28 +100,28 @@ React.useEffect(() => {
       {isWon ? <Confetti /> : ""}
 
       <div className='board'>
-        <h1>Tenzies</h1>
-        <h2> Roll until all dice are the same. 
-          < br/>
-          Click each die to freeze it at its current value between rolls.</h2>
         
-        <div className='container'>
-         {diceElements}
-                  
+          <h1>Tenzies</h1>
+          <h2> Roll until all dice are the same. 
+            < br/>
+            Click each die to freeze it at its current value between rolls.</h2>
           
-        </div>
+          <div className='container'>
+          {diceElements}
+          </div>
 
-        <button className='roll-btn'
-                onClick={isStarted ? updateDice : startGame} 
-        >{ isStarted ? (isWon ? "Play again" : "Roll Dice") : "Play" }
-        </button>  
+          <button className='roll-btn'
+                  onClick={isStarted ? updateDice : startGame} 
+          >{ isStarted ? (isWon ? "Play again" : "Roll Dice") : "Play" }
+          </button>  
 
-        
-        <Counter isStarted={isStarted} isWon={isWon} moves={moves} />
-        {/* <Timer isStarted={isStarted} time={time} /> */}
-  
+          
+          <Counter isStarted={isStarted} isWon={isWon} moves={moves} />
+          <Timer isStarted={isStarted} time={time} />
+                
+        <p> Made by <a href='https://www.aleksandragalach.link/' target="_blank">Aleksandra Gałach</a> <>{currentDate}</></p> 
       </div>
-     
+       
     </div>
   );
 }
