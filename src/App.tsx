@@ -7,9 +7,6 @@ import { nanoid } from 'nanoid'
 import Confetti from 'react-confetti'
 import Counter from './Counter';
 import Timer from './Timer';
-// Problem w komponencie: This JSX tag's 'children' prop expects a single child of type 'ReactNode', but multiple children were provided.ts(2746)
-
-
 
 
 function App() {
@@ -112,8 +109,6 @@ React.useEffect(()=>{window.clearInterval(timerId)}
 ,[isWon])
 
 
-// console.log("component rendered fully")
-
   return (
     <div className="App">
       {isWon ? <Confetti /> : ""}
@@ -140,7 +135,14 @@ React.useEffect(()=>{window.clearInterval(timerId)}
           </div>
           
                 
-        <p> Made by <a href='https://www.aleksandragalach.link/' target="_blank">Aleksandra Gałach</a> <>{currentDate}</></p> 
+        <footer>
+        <a className="portfolio-page-link"
+             href='https://www.aleksandragalach.link/' 
+             target="_blank">
+            Made by Aleksandra Gałach   
+          <div className='year'>{currentDate}</div>
+        </a>
+        </footer> 
       </div>
        
     </div>
