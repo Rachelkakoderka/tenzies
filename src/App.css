@@ -40,6 +40,7 @@ h1 {
 }
 h2 {
   text-align: center;
+  max-width: 80%;
 }
 
 .container {
@@ -84,10 +85,14 @@ h2 {
   display: flex;
   align-items: center;
   text-align: center;
+  transform: scale(1);
+  transition: transform 250ms;
   
 }
 
 .roll-btn:hover {
+  
+  transform: scale(1.05);
   cursor: pointer;
   background-color: #583efd;
 }
@@ -131,8 +136,8 @@ footer:focus {
   }
 
   .board {
-    padding: 1em;
-    border-radius: 0;
+    padding: .5em;
+    margin: .5em;
   }
 
   .die {
